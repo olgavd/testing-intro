@@ -17,12 +17,15 @@ function addToCart(cart, headphones, quantity) {
 }
 function changeQuantity(cart, oldQuantity, newQuantity) {
   if (newQuantity === 0 || newQuantity > cart[0].stock) throw new RangeError();
-
   cart[0].quantity = newQuantity;
   return cart;
 }
 
-function removeFromCart() { return notImplemented(); }
+function removeFromCart(cart, quantity) {
+  return cart.filter(item => item.quantity !== quantity);
+}
+
+
 function calculateCartSubtotal() { return notImplemented(); }
 function calculateOrderTotal() { return notImplemented(); }
 
