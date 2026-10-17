@@ -5,13 +5,14 @@ describe('filterByCategory', () => {
   test("'all' возвращает товары с ID [1, 2, 3, 4, 5, 6]", () => {
     const category = 'all';
     expect(filterByCategory(products, category)).toEqual(products);
+    expect(filterByCategory(products, category)).not.toBe(products);
   });
 
   test("undefined возвращает товары с ID [1, 2, 3, 4, 5, 6]", () => {
     expect(filterByCategory(products, undefined)).toEqual(products);
   });
 
-  test("undefined возвращает товары с ID [1, 2, 3, 4, 5, 6]", () => {
+  test("пустая строка возвращает товары с ID [1, 2, 3, 4, 5, 6]", () => {
     expect(filterByCategory(products, '')).toEqual(products);
   });
 
@@ -35,10 +36,10 @@ describe('filterByCategory', () => {
   });
 
   test("'toys' возвращает пустой массив", () => {
-    expect(filterByCategory(products, 'clothes')).toEqual([]);
+    expect(filterByCategory(products, 'toys')).toEqual([]);
   });
 
   test("'sports' возвращает пустой массив", () => {
-    expect(filterByCategory(products, 'clothes')).toEqual([]);
+    expect(filterByCategory(products, 'sports')).toEqual([]);
   });
 });
