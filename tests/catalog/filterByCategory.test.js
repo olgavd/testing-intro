@@ -32,14 +32,14 @@ describe('filterByCategory', () => {
   });
 
   test("'clothes' возвращает пустой массив", () => {
-    expect(filterByCategory(products, 'clothes')).toEqual([]);
+    expect(filterByCategory(products, 'clothes')).toHaveLength(0);
   });
 
   test("'toys' возвращает пустой массив", () => {
-    expect(filterByCategory(products, 'toys')).toEqual([]);
+    expect(filterByCategory(products, 'toys')).toHaveLength(0);
   });
 
   test("'sports' возвращает пустой массив", () => {
-    expect(filterByCategory(products, 'sports')).toEqual([]);
+    expect(filterByCategory(products, 'sports')).toHaveLength(0);
   });
 });
