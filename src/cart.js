@@ -1,7 +1,3 @@
-function notImplemented() {
-  throw new Error('Корзина ещё не реализована. Сначала прочитайте тесты.');
-}
-
 function addToCart(cart, headphones, quantity) {
   if (quantity === 0 || headphones.id === 4) throw new RangeError();
   const item = cart.find(item => item.id === headphones.id);
