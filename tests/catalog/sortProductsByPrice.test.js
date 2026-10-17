@@ -4,7 +4,8 @@ const { sortProductsByPrice } = require('../../src/catalog');
 describe('sortProductsByPrice', () => {
   test("все товары c 'asc' сортируются как [3, 6, 5, 4, 2, 1]", () => {
     const sortProduct = 'asc';
-    expect(sortProductsByPrice(products, sortProduct)).toEqual(products.sort((first, second) => (first.price - second.price)));
+    expect(sortProductsByPrice(products, sortProduct))
+      .toEqual(products.sort((first, second) => (first.price - second.price)));
   });
 
   test('все товары без направления сортируются как [3, 6, 5, 4, 2, 1]', () => {
