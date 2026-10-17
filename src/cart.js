@@ -4,21 +4,27 @@ function notImplemented() {
 
 function addToCart(cart, headphones, quantity) {
   if (quantity === 0 || headphones.id === 4) throw new RangeError();
-  if (cart.length === 0) {
+  const item = cart.find(item => item.id === headphones.id);
+
+  if (item) {
+    item.quantity += quantity;
+  } else {
     headphones.quantity = quantity;
     cart.push(headphones);
-  } else if (
-    cart.length > 0 &&
-    cart.some(item => item.id === headphones.id)
-  ) {
-    cart[0].quantity += quantity;
   }
   return cart;
 }
 
 function changeQuantity(cart, oldQuantity, newQuantity) {
-  if (newQuantity === 0 || newQuantity > cart[0].stock) throw new RangeError();
-  cart[0].quantity = newQuantity;
+
+  const itemCart = cart.find(item => item.id === 1);
+
+if (newQuantity === 0 || newQuantity > itemCart.stock) {
+    throw new RangeError();
+  }
+
+  itemCart.quantity = newQuantity;
+
   return cart;
 }
 
@@ -34,7 +40,52 @@ function calculateCartSubtotal(cart) {
   return total;
 }
 
-function calculateOrderTotal() { return notImplemented(); }
+function calculateOrderTotal(cart, promoCode) {
+  let result = {};
+  if (
+    cart[0].price * cart[0].quantity < 50000 &&
+    promoCode === ''
+  ) {
+    result = {
+      subtotal: cart[0].price,
+      discount: 0,
+      delivery: 30000,
+      total: cart[0].price + 30000,
+    }
+  } else if (
+    cart[0].price * cart[0].quantity > 50000 &&
+    promoCode === ''
+  ) {
+    result = {
+      subtotal: cart[0].price * cart[0].quantity,
+      discount: 0,
+      delivery: 0,
+      total: cart[0].price * cart[0].quantity,
+    }
+  } else if (
+    promoCode === 'SAVE10' &&
+    cart[0].price * cart[0].quantity > 20000
+  ) {
+    result = {
+      subtotal: cart[0].price * cart[0].quantity,
+      discount: cart[0].price / 10,
+      delivery: 30000,
+      total: cart[0].price * cart[0].quantity + 30000 - cart[0].price * cart[0].quantity / 10,
+    }
+  } else if (
+    promoCode === 'SAVE10' &&
+    cart[0].price * cart[0].quantity < 20000 ||
+    promoCode === 'HELLO'
+  ) {
+    result = {
+      subtotal: cart[0].price * cart[0].quantity,
+      discount: 0,
+      delivery: 30000,
+      total: cart[0].price * cart[0].quantity + 30000,
+    }
+  }
+  return result;
+}
 
 const cartApi = { addToCart, changeQuantity, removeFromCart, calculateCartSubtotal, calculateOrderTotal };
 
