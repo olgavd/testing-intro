@@ -19,31 +19,31 @@ describe('getProductById', () => {
 
   test('ID 0 возвращает null', () => {
     const id = 0;
-    expect(getProductById(products, id)).toEqual(null);
+    expect(getProductById(products, id)).toBeNull();
   });
 
   test('ID 999 возвращает null', () => {
     const id = 999;
-    expect(getProductById(products, id)).toEqual(null);
+    expect(getProductById(products, id)).toBeNull();
   });
 
   test('ID -1 возвращает null', () => {
     const id = -1;
-    expect(getProductById(products, id)).toEqual(null);
+    expect(getProductById(products, id)).toBeNull();
   });
 
   test("строковый ID '1' возвращает null", () => {
     const id = '1';
-    expect(getProductById(products, id)).toEqual(null);
+    expect(getProductById(products, id)).toBeNull();
   });
 
   test('ID undefined возвращает null', () => {
     const id = undefined;
-    expect(getProductById(products, id)).toEqual(null);
+    expect(getProductById(products, id)).toBeNull();
   });
 
   test('ID NaN возвращает null', () => {
     const id = NaN;
-    expect(getProductById(products, id)).toEqual(null);
+    expect(getProductById(products, id)).toBeNull();
   });
 });
