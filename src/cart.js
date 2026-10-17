@@ -15,6 +15,7 @@ function addToCart(cart, headphones, quantity) {
   }
   return cart;
 }
+
 function changeQuantity(cart, oldQuantity, newQuantity) {
   if (newQuantity === 0 || newQuantity > cart[0].stock) throw new RangeError();
   cart[0].quantity = newQuantity;
@@ -25,8 +26,14 @@ function removeFromCart(cart, quantity) {
   return cart.filter(item => item.quantity !== quantity);
 }
 
+function calculateCartSubtotal(cart) {
+  let total = 0;
+  cart.forEach(element => {
+    total += element.price * element.quantity;
+  });
+  return total;
+}
 
-function calculateCartSubtotal() { return notImplemented(); }
 function calculateOrderTotal() { return notImplemented(); }
 
 const cartApi = { addToCart, changeQuantity, removeFromCart, calculateCartSubtotal, calculateOrderTotal };
