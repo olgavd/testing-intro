@@ -15,7 +15,7 @@ function changeQuantity(cart, oldQuantity, newQuantity) {
 
   const itemCart = cart.find(item => item.id === 1);
 
-if (newQuantity === 0 || newQuantity > itemCart.stock) {
+  if (newQuantity === 0 || newQuantity > itemCart.stock) {
     throw new RangeError();
   }
 
@@ -70,9 +70,15 @@ function calculateOrderTotal(cart, promoCode) {
     }
   } else if (
     promoCode === 'SAVE10' &&
-    cart[0].price * cart[0].quantity < 20000 ||
-    promoCode === 'HELLO'
+    cart[0].price * cart[0].quantity < 20000
   ) {
+    result = {
+      subtotal: cart[0].price * cart[0].quantity,
+      discount: 0,
+      delivery: 30000,
+      total: cart[0].price * cart[0].quantity + 30000,
+    }
+  } else {
     result = {
       subtotal: cart[0].price * cart[0].quantity,
       discount: 0,
