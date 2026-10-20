@@ -16,7 +16,7 @@ function changeQuantity(cart, id, newQuantity) {
 
   const itemCart = cart.find(item => item.id === id);
   if (itemCart) {
-    if (newQuantity === 0 || newQuantity > itemCart.stock) {
+    if (newQuantity <= 0 || newQuantity > itemCart.stock) {
       throw new RangeError();
     }
     itemCart.quantity = newQuantity;
