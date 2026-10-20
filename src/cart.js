@@ -1,12 +1,13 @@
-function addToCart(cart, headphones, quantity) {
-  if (quantity === 0 || headphones.id === 4) throw new RangeError();
-  const item = cart.find(item => item.id === headphones.id);
+function addToCart(cart, goods, quantity) {
+  
+  if (quantity === 0 || quantity > goods.stock) throw new RangeError();
+  const item = cart.find(item => item.id === goods.id);
 
   if (item) {
     item.quantity += quantity;
   } else {
-    headphones.quantity = quantity;
-    cart.push(headphones);
+    goods.quantity = quantity;
+    cart.push(goods);
   }
   return cart;
 }
