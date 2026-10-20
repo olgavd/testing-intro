@@ -11,15 +11,15 @@ function addToCart(cart, headphones, quantity) {
   return cart;
 }
 
-function changeQuantity(cart, oldQuantity, newQuantity) {
+function changeQuantity(cart, id, newQuantity) {
 
-  const itemCart = cart.find(item => item.id === 1);
-
-  if (newQuantity === 0 || newQuantity > itemCart.stock) {
-    throw new RangeError();
+  const itemCart = cart.find(item => item.id === id);
+  if (itemCart) {
+    if (newQuantity === 0 || newQuantity > itemCart.stock) {
+      throw new RangeError();
+    }
+    itemCart.quantity = newQuantity;
   }
-
-  itemCart.quantity = newQuantity;
 
   return cart;
 }
