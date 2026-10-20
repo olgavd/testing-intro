@@ -24,8 +24,8 @@ function changeQuantity(cart, oldQuantity, newQuantity) {
   return cart;
 }
 
-function removeFromCart(cart, quantity) {
-  return cart.filter(item => item.quantity !== quantity);
+function removeFromCart(cart, id) {
+  return cart.filter(item => item.id !== id);
 }
 
 function calculateCartSubtotal(cart) {
