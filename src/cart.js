@@ -38,52 +38,61 @@ function calculateCartSubtotal(cart) {
 
 function calculateOrderTotal(cart, promoCode) {
   let result = {};
+  let price = 0;
+  let quantity = 0;
+
+
+  cart.forEach(element => {
+    price += element.price;
+    quantity += element.quantity;
+  });
+
+
   if (
-    cart[0].price * cart[0].quantity < 50000 &&
+    price * quantity < 50000 &&
     promoCode === ''
   ) {
     result = {
-      subtotal: cart[0].price,
+      subtotal: price,
       discount: 0,
       delivery: 30000,
-      total: cart[0].price + 30000,
+      total: price + 30000,
     }
   } else if (
-    cart[0].price * cart[0].quantity > 50000 &&
-    promoCode === ''
+    price * quantity >= 50000
   ) {
     result = {
-      subtotal: cart[0].price * cart[0].quantity,
+      subtotal: price * quantity,
       discount: 0,
       delivery: 0,
-      total: cart[0].price * cart[0].quantity,
+      total: price * quantity,
     }
   } else if (
     promoCode === 'SAVE10' &&
-    cart[0].price * cart[0].quantity > 20000
+    price * quantity >= 20000
   ) {
     result = {
-      subtotal: cart[0].price * cart[0].quantity,
-      discount: cart[0].price / 10,
+      subtotal: price * quantity,
+      discount: price * quantity / 10,
       delivery: 30000,
-      total: cart[0].price * cart[0].quantity + 30000 - cart[0].price * cart[0].quantity / 10,
+      total: price * quantity + 30000 - price * quantity / 10,
     }
   } else if (
     promoCode === 'SAVE10' &&
-    cart[0].price * cart[0].quantity < 20000
+    price * quantity < 20000
   ) {
     result = {
-      subtotal: cart[0].price * cart[0].quantity,
+      subtotal: price * quantity,
       discount: 0,
       delivery: 30000,
-      total: cart[0].price * cart[0].quantity + 30000,
+      total: price * quantity + 30000,
     }
   } else {
     result = {
-      subtotal: cart[0].price * cart[0].quantity,
+      subtotal: price * quantity,
       discount: 0,
       delivery: 30000,
-      total: cart[0].price * cart[0].quantity + 30000,
+      total: price * quantity + 30000,
     }
   }
   return result;
