@@ -1,12 +1,103 @@
-function notImplemented() {
-  throw new Error('Корзина ещё не реализована. Сначала прочитайте тесты.');
+function addToCart(cart, goods, quantity) {
+  
+  if (quantity === 0 || quantity > goods.stock) throw new RangeError();
+  const item = cart.find(item => item.id === goods.id);
+
+  if (item) {
+    item.quantity += quantity;
+  } else {
+    goods.quantity = quantity;
+    cart.push(goods);
+  }
+  return cart;
 }
 
-function addToCart() { return notImplemented(); }
-function changeQuantity() { return notImplemented(); }
-function removeFromCart() { return notImplemented(); }
-function calculateCartSubtotal() { return notImplemented(); }
-function calculateOrderTotal() { return notImplemented(); }
+function changeQuantity(cart, id, newQuantity) {
+
+  const itemCart = cart.find(item => item.id === id);
+  if (itemCart) {
+    if (newQuantity <= 0 || newQuantity > itemCart.stock) {
+      throw new RangeError();
+    }
+    itemCart.quantity = newQuantity;
+  }
+
+  return cart;
+}
+
+function removeFromCart(cart, id) {
+  return cart.filter(item => item.id !== id);
+}
+
+function calculateCartSubtotal(cart) {
+  let total = 0;
+  cart.forEach(element => {
+    total += element.price * element.quantity;
+  });
+  return total;
+}
+
+function calculateOrderTotal(cart, promoCode) {
+  let result = {};
+  let price = 0;
+  let quantity = 0;
+
+
+  cart.forEach(element => {
+    price += element.price;
+    quantity += element.quantity;
+  });
+
+
+  if (
+    price * quantity < 50000 &&
+    promoCode === ''
+  ) {
+    result = {
+      subtotal: price,
+      discount: 0,
+      delivery: 30000,
+      total: price + 30000,
+    }
+  } else if (
+    price * quantity >= 50000
+  ) {
+    result = {
+      subtotal: price * quantity,
+      discount: 0,
+      delivery: 0,
+      total: price * quantity,
+    }
+  } else if (
+    promoCode === 'SAVE10' &&
+    price * quantity >= 20000
+  ) {
+    result = {
+      subtotal: price * quantity,
+      discount: price * quantity / 10,
+      delivery: 30000,
+      total: price * quantity + 30000 - price * quantity / 10,
+    }
+  } else if (
+    promoCode === 'SAVE10' &&
+    price * quantity < 20000
+  ) {
+    result = {
+      subtotal: price * quantity,
+      discount: 0,
+      delivery: 30000,
+      total: price * quantity + 30000,
+    }
+  } else {
+    result = {
+      subtotal: price * quantity,
+      discount: 0,
+      delivery: 30000,
+      total: price * quantity + 30000,
+    }
+  }
+  return result;
+}
 
 const cartApi = { addToCart, changeQuantity, removeFromCart, calculateCartSubtotal, calculateOrderTotal };
 
